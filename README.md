@@ -11,22 +11,27 @@ Generate your favorite icons into Gluestack-v2 components with a single command!
 - 📦 Optimized component output
 
 ## 🚀 Installation
+Install globally using your preferred package manager:
 
-Install globally using npm:
-
+npm
 ```
 npm install -g gluestack-icon-generator
 ```
-
-Or using yarn:
+yarn
 ```
 yarn global add gluestack-icon-generator
 ```
 
-You can also run directly using npx:
+pnpm
 ```
-npx gluestack-icon-generator
+pnpm add -g gluestack-icon-generator
+``` 
+
+bun
 ```
+bun add -g gluestack-icon-generator
+```
+
 
 ## 📖 Usage
 You can use either the full command `gluestack-icon-generator` or the shortcut `gig`.
