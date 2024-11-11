@@ -9,13 +9,25 @@ const COLLECTIONS_URL = 'https://api.iconify.design/collections';
 const POPULAR_COLLECTIONS = [
   'mdi',
   'material-symbols',
+  'ic',
+  'lucide',
   'ion',
   'octicon',
-  'lucide',
+  'fe',
+  'ant-design',
   'ph',
   'solar',
   'ri',
-  'bi'
+  'bi',
+  'tabler',          
+  'heroicons',
+  'carbon',            
+  'fa6-solid',           
+  'fa6-regular',
+  'clarity',              
+  'fluent',             
+  'mingcute',
+  'line-md'      
 ];
 
 function convertToPascalCase(str) {
@@ -66,7 +78,7 @@ async function fetchCollections() {
 }
 
 async function promptForCollection(collections) {
-  const collectionNames = Object.keys(collections).sort();
+  const collectionNames = Object.keys(collections);
   
   // Separate popular and other collections
   const popularChoices = POPULAR_COLLECTIONS
@@ -78,6 +90,7 @@ async function promptForCollection(collections) {
 
   const otherChoices = collectionNames
     .filter(name => !POPULAR_COLLECTIONS.includes(name))
+    .sort() // Sort alphabetically
     .map(name => ({
       name: `${collections[name].name} (${name})`,
       value: name
@@ -94,7 +107,8 @@ async function promptForCollection(collections) {
         new inquirer.Separator(chalk.bold('Other Collections')),
         ...otherChoices
       ],
-      pageSize: 15
+      pageSize: 15,
+      loop: false // Prevent looping back to start
     }
   ]);
 
