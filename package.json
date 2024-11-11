@@ -1,6 +1,6 @@
 {
   "name": "gluestack-icon-generator",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Generate React Native SVG icon components from Iconify collections for Gluestack-UI v2",
   "main": "src/index.js",
   "type": "module",
