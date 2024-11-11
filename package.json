@@ -1,0 +1,36 @@
+{
+  "name": "gluestack-icon-generator",
+  "version": "1.0.0",
+  "description": "Generate React Native SVG icon components from Iconify collections for Gluestack-UI v2",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "icons": "./bin/icons.js"
+  },
+  "keywords": [
+    "gluestack",
+    "react-native",
+    "svg",
+    "icons",
+    "generator",
+    "iconify"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandipshiwakoti/gluestack-icon-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sandipshiwakoti/gluestack-icon-generator/issues"
+  },
+  "homepage": "https://github.com/sandipshiwakoti/gluestack-icon-generator#readme",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1"
+  }
+}
