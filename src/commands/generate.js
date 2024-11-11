@@ -37,7 +37,7 @@ function convertToPascalCase(str) {
     .join('') + 'Icon';
 }
 
-function createIconComponent(iconName, pathData) {
+function createIconComponent(iconName, pathData, size) {
   const componentName = convertToPascalCase(iconName);
   
   // Format the path data:
@@ -54,7 +54,7 @@ import {createIcon} from '@gluestack-ui/icon';
 
 const ${componentName} = createIcon({
   Root: Svg,
-  viewBox: '0 0 24 24',
+  viewBox: '0 0 ${size} ${size}',
   path: (
     <>
       ${cleanPathData}
@@ -101,6 +101,7 @@ async function promptForCollection(collections) {
       type: 'list',
       name: 'collection',
       message: 'Select an icon collection:',
+      prefix: '🎨',
       choices: [
         new inquirer.Separator(chalk.bold('Popular Collections')),
         ...popularChoices,
@@ -129,6 +130,7 @@ async function promptForIcons(collection, collections) {
     {
       type: 'input',
       name: 'icons',
+      prefix: '🧩',
       message: 'Enter icon names (comma-separated):',
       validate: input => input.length > 0 || 'Please enter at least one icon name'
     }
@@ -138,28 +140,33 @@ async function promptForIcons(collection, collections) {
 }
 
 async function promptForOutputPath(defaultPath = 'src/components/ui/icon') {
-  const { shouldCustomize } = await inquirer.prompt([
+  const { outputPath } = await inquirer.prompt([
     {
-      type: 'confirm',
-      name: 'shouldCustomize',
-      message: `Enter output directory path? (default: ${chalk.blue(defaultPath)})`,
-      default: false
+      type: 'input',
+      name: 'outputPath',
+      message: `Enter the output directory path ${chalk.gray('(press Enter to use default)')}:`,
+      default: defaultPath,
+      prefix: '📁',
     }
   ]);
+  return outputPath;
+}
 
-  if (shouldCustomize) {
-    const { outputPath } = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'outputPath',
-        message: 'Enter the output directory path:',
-        default: defaultPath
+async function promptForSize(defaultSize = '24') {
+  const { size } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'size',
+      message: `Enter icon size ${chalk.gray('(press Enter to use default)')}:`,
+      default: defaultSize,
+      prefix: '📏',
+      validate: input => {
+        const num = parseInt(input);
+        return (!isNaN(num) && num > 0) || 'Please enter a valid positive number';
       }
-    ]);
-    return outputPath;
-  }
-
-  return defaultPath;
+    }
+  ]);
+  return size;
 }
 
 
@@ -187,6 +194,9 @@ async function generateIcons(options = {}) {
     // Get output directory from options or prompt
     const outputDir = options.output || await promptForOutputPath();
 
+    // Get size from options or prompt
+    const size = options.size || await promptForSize();
+
     spinner.start(`Fetching icons from ${selectedCollection}`);
 
     // Create output directory if it doesn't exist
@@ -205,7 +215,7 @@ async function generateIcons(options = {}) {
       if (response.data.icons && response.data.icons[iconName]) {
         const iconData = response.data.icons[iconName];
         // Just use the body directly, we'll format it in createIconComponent
-        const componentContent = createIconComponent(iconName, iconData.body);
+        const componentContent = createIconComponent(iconName, iconData.body, size);
         
         // Write component file
         const fileName = `${convertToPascalCase(iconName)}.tsx`;
@@ -219,7 +229,10 @@ async function generateIcons(options = {}) {
       }
     }
 
-    spinner.succeed(chalk.green(`Generated ${found.length} icon components in ${chalk.blue(outputDir)}`));
+    spinner.succeed(
+      found.length === 0
+        ? chalk.yellow('No icons were generated')
+        : chalk.green(`Generated ${chalk.bold(found.length)} ${found.length === 1 ? 'icon' : 'icons'} at ${chalk.blue(outputDir)}`));
     
     // Display results
     if (found.length > 0) {

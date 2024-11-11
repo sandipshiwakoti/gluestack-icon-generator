@@ -56,6 +56,7 @@ This command will generate the icons `home`, `bell`, and `map` from the `mdi` co
 - `-c, --collection`: Icon collection name (e.g., mdi)
 - `-i, --icons`: Comma-separated icon names
 - `-o, --output`: Custom output directory (default: src/components/ui/icon)
+- `-s, --size`: Icon viewBox size (default: 24)
 
 ## 🎯 Example
 
