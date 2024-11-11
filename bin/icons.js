@@ -4,7 +4,7 @@ import { program } from 'commander';
 import generateIcons from '../src/commands/generate.js';
 
 program
-  .name('icons')
+  .name('gluestack-icon-generator')
   .description('Generate React Native icon components from Iconify collections');
 
 program

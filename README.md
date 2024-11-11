@@ -12,18 +12,29 @@ Generate your favorite icons into Gluestack-v2 components with a single command!
 
 ## 🚀 Installation
 
-`npm install gluestack-icon-generator`
-# or
-`yarn add gluestack-icon-generator`
+Install globally using npm:
+
+```
+npm install -g gluestack-icon-generator
+```
+
+Or using yarn:
+```
+yarn global add gluestack-icon-generator
+```
+
+You can also run directly using npx:
+```
+npx gluestack-icon-generator
+```
 
 ## 📖 Usage
+You can use either the full command `gluestack-icon-generator` or the shortcut `gig`.
 
 ### 1. Interactive Mode
    
-Just run:
-
 ```
-npx icons generate
+gig generate
 ```
 
 Follow the interactive prompts to select your icon collection and icons.
@@ -31,7 +42,7 @@ Follow the interactive prompts to select your icon collection and icons.
 ### 2. Command Line Mode
 
 ```
-npx icons generate --collection mdi --icons home,bell,map --output src/components/ui/icon
+gig generate --collection mdi --icons home,bell,map --output src/components/ui/icon
 ```
 
 This command will generate the icons `home`, `bell`, and `map` from the `mdi` collection and save them in the `src/components/ui/icon` directory.
