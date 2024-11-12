@@ -1,7 +1,11 @@
 # 🔥 Gluestack Icon Generator
 
-Generate your favorite icons into Gluestack-v2 components with a single command! This CLI tool makes it effortless to generate icon components from any Iconify collection.
+[![npm version](https://img.shields.io/npm/v/gluestack-icon-generator.svg)](https://www.npmjs.com/package/gluestack-icon-generator)
+[![Node Version](https://img.shields.io/node/v/gluestack-icon-generator.svg)](https://www.npmjs.com/package/gluestack-icon-generator)
+[![CLI Tool](https://img.shields.io/badge/CLI-Tool-orange.svg)](https://www.npmjs.com/package/gluestack-icon-generator)
 
+
+Generate your favorite icons into Gluestack-v2 components with a single command! This CLI tool makes it effortless to generate icon components from any Iconify collection.
 
 ## ✨ Features
 
@@ -34,12 +38,16 @@ bun add -g gluestack-icon-generator
 
 
 ## 📖 Usage
-You can use either the full command `gluestack-icon-generator` or the shortcut `gicongen`.
+Use `gluestack-icon-generator` or shortcut `gicongen` with command `generate` or shortcut `g`.
 
 ### 1. Interactive Mode
    
 ```
 gicongen generate
+```
+or
+```
+gicongen g
 ```
 
 Follow the interactive prompts to select your icon collection and icons.
@@ -48,6 +56,10 @@ Follow the interactive prompts to select your icon collection and icons.
 
 ```
 gicongen generate --collection mdi --icons "home, bell, map" --output src/components/ui/icon
+```
+or
+```
+gicongen g -c mdi -i "home, bell, map" -o src/components/ui/icon
 ```
 
 This command will generate the icons `home`, `bell`, and `map` from the `mdi` collection and save them in the `src/components/ui/icon` directory.
@@ -88,4 +100,6 @@ export default HomeIcon;
 
 Contributions are welcome! Feel free to submit issues and pull requests.
 
-<p align="center">Built for the Gluestack community</p>
+<p align="center">
+  <sub>Built with ❤️ for the Gluestack community • Free and Open Source</sub>
+</p>
