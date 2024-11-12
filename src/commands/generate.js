@@ -229,6 +229,7 @@ async function generateIcons(options = {}) {
     for (const iconName of iconNames) {
       if (data.icons && data.icons[iconName]) {
         const iconData = data.icons[iconName];
+        const componentName = convertToPascalCase(iconName);
         const componentContent = createIconComponent(iconName, iconData.body, size);
         
         // Write component file
@@ -236,7 +237,7 @@ async function generateIcons(options = {}) {
         const filePath = path.join(outputDir, fileName);
         await fs.writeFile(filePath, componentContent);
         
-        found.push(iconName);
+        found.push(componentName);
         spinner.text = `Generated: ${fileName}`;
       } else {
         notFound.push(iconName);
@@ -251,12 +252,14 @@ async function generateIcons(options = {}) {
     // Display results
     if (found.length > 0) {
       console.log(chalk.green('\nIcons generated:'));
-      console.log(found.join(', '));
+      console.log(
+        found.map(icon => chalk.cyan(`  • ${icon}\n`)).join('')
+      );
     }
     
     if (notFound.length > 0) {
       console.log(chalk.yellow('\nIcons not found:'));
-      console.log(notFound.join(', '));
+      console.log(chalk.red(notFound.join(', ')));
     }
 
   } catch (error) {
