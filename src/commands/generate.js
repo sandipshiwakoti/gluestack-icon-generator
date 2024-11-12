@@ -221,7 +221,7 @@ async function generateIcons(options = {}) {
 
     // Get icon names from options or prompt
     const iconNames = options.icons 
-      ? options.icons.split(',') 
+      ? options.icons.split(',').map(icon => icon.trim())
       : await promptForIcons(selectedCollection, collections);
     
     // Get output directory from options or prompt
