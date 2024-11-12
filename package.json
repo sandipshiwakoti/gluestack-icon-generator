@@ -6,7 +6,7 @@
   "type": "module",
   "bin": {
     "gluestack-icon-generator": "bin/icons.js",
-    "gig": "bin/icons.js"
+    "gicongen": "bin/icons.js"
   },
   "keywords": [
     "gluestack",

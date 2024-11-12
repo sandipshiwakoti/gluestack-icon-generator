@@ -34,12 +34,12 @@ bun add -g gluestack-icon-generator
 
 
 ## 📖 Usage
-You can use either the full command `gluestack-icon-generator` or the shortcut `gig`.
+You can use either the full command `gluestack-icon-generator` or the shortcut `gicongen`.
 
 ### 1. Interactive Mode
    
 ```
-gig generate
+gicongen generate
 ```
 
 Follow the interactive prompts to select your icon collection and icons.
@@ -47,7 +47,7 @@ Follow the interactive prompts to select your icon collection and icons.
 ### 2. Command Line Mode
 
 ```
-gig generate --collection mdi --icons home,bell,map --output src/components/ui/icon
+gicongen generate --collection mdi --icons "home, bell, map" --output src/components/ui/icon
 ```
 
 This command will generate the icons `home`, `bell`, and `map` from the `mdi` collection and save them in the `src/components/ui/icon` directory.
@@ -56,7 +56,6 @@ This command will generate the icons `home`, `bell`, and `map` from the `mdi` co
 - `-c, --collection`: Icon collection name (e.g., mdi)
 - `-i, --icons`: Comma-separated icon names
 - `-o, --output`: Custom output directory (default: src/components/ui/icon)
-- `-s, --size`: Icon viewBox size (default: 24)
 
 ## 🎯 Example
 
