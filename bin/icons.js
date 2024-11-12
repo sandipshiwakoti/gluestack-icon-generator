@@ -13,7 +13,6 @@ program
   .option('-c, --collection <name>', 'Collection name (e.g., material-symbols)')
   .option('-i, --icons <names>', 'Comma-separated icon names')
   .option('-o, --output <path>', 'Output directory path (default: src/components/ui/icon)')
-  .option('-s, --size <number>', 'Icon viewBox size (default: 24)')
   .action(async (options) => {
     try {
       await generateIcons(options);

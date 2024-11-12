@@ -185,24 +185,6 @@ async function promptForOutputPath(defaultPath = 'src/components/ui/icon') {
   return outputPath;
 }
 
-async function promptForSize(defaultSize = '24') {
-  const { size } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'size',
-      message: `Enter icon size ${chalk.gray('(press Enter to use default)')}:`,
-      default: defaultSize,
-      prefix: '📏',
-      validate: input => {
-        const num = parseInt(input);
-        return (!isNaN(num) && num > 0) || 'Please enter a valid positive number';
-      }
-    }
-  ]);
-  return size;
-}
-
-
 async function generateIcons(options = {}) {
   const spinner = ora();
   try {
@@ -227,9 +209,6 @@ async function generateIcons(options = {}) {
     // Get output directory from options or prompt
     const outputDir = options.output || await promptForOutputPath();
 
-    // Get size from options or prompt
-    const size = options.size || await promptForSize();
-
     spinner.start(`Fetching icons from ${selectedCollection}`);
 
     // Create output directory if it doesn't exist
@@ -246,8 +225,9 @@ async function generateIcons(options = {}) {
 
     for (const iconName of iconNames) {
       if (response.data.icons && response.data.icons[iconName]) {
-        const iconData = response.data.icons[iconName];
-        // Just use the body directly, we'll format it in createIconComponent
+        const data = response.data;
+        const size = data.width || data.height || 29;
+        const iconData = data.icons[iconName];
         const componentContent = createIconComponent(iconName, iconData.body, size);
         
         // Write component file
