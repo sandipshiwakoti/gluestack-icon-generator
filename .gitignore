@@ -1,6 +1,19 @@
+# Dependencies
 node_modules/
+
+# System files
 .DS_Store
+
+# Generated components
 components/
+src/components/
+icons/
+
+# Assets
+assets/
+*.gif
+
+# Lock files
 yarn.lock
 pnpm-lock.yaml
 bun.lockb
