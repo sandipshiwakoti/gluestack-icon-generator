@@ -223,10 +223,11 @@ async function generateIcons(options = {}) {
     const found = [];
     const notFound = [];
 
+    const data = response.data;
+    const size = data.width || data.height || 24;
+
     for (const iconName of iconNames) {
-      if (response.data.icons && response.data.icons[iconName]) {
-        const data = response.data;
-        const size = data.width || data.height || 29;
+      if (data.icons && data.icons[iconName]) {
         const iconData = data.icons[iconName];
         const componentContent = createIconComponent(iconName, iconData.body, size);
         
@@ -245,7 +246,7 @@ async function generateIcons(options = {}) {
     spinner.succeed(
       found.length === 0
         ? chalk.yellow('No icons were generated')
-        : chalk.green(`Generated ${chalk.bold(found.length)} ${found.length === 1 ? 'icon' : 'icons'} at ${chalk.blue(outputDir)}`));
+        : chalk.green(`Generated ${chalk.bold(found.length)} ${found.length === 1 ? 'icon' : 'icons'} at ${chalk.blue(outputDir)} with size of ${chalk.blue(size)}`));
     
     // Display results
     if (found.length > 0) {
