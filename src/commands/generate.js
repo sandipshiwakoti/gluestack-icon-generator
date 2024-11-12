@@ -39,17 +39,50 @@ function convertToPascalCase(str) {
 
 function createIconComponent(iconName, pathData, size) {
   const componentName = convertToPascalCase(iconName);
-  
-  // Format the path data:
-  // 1. Replace path with Path for React Native
-  // 2. Replace escaped quotes with regular quotes
-  const cleanPathData = pathData
-    .replace(/<path/g, '<Path')
-    .replace(/path>/g, 'Path>')
-    .replace(/\\"/g, '"');
+
+  // Get all unique SVG elements used in the pathData
+  const svgElements = new Set();
+  const elementRegex = /<(\w+)[^>]*>/g;
+  let match;
+  while ((match = elementRegex.exec(pathData)) !== null) {
+    svgElements.add(match[1].toLowerCase());
+  }
+
+  // Map SVG elements to React Native SVG components
+  const elementMapping = {
+    path: 'Path',
+    circle: 'Circle',
+    rect: 'Rect',
+    line: 'Line',
+    polyline: 'Polyline',
+    polygon: 'Polygon',
+    g: 'G',
+    defs: 'Defs',
+    clippath: 'ClipPath',
+    lineargradient: 'LinearGradient',
+    radialgradient: 'RadialGradient',
+    stop: 'Stop'
+  };
+
+  // Create imports array based on used elements
+  const imports = ['Svg'];
+  for (const element of svgElements) {
+    const mappedElement = elementMapping[element];
+    if (mappedElement) {
+      imports.push(mappedElement);
+    }
+  }
+
+  // Clean and transform SVG data
+  const cleanPathData = pathData.replace(
+    /<(\w+)([^>]*)>/g,
+    (match, tag, attrs) => `<${elementMapping[tag.toLowerCase()] || tag}${attrs}>`
+  ).replace(/(\w+)>/g, (match, tag) => 
+    `${elementMapping[tag.toLowerCase()] || tag}>`
+  ).replace(/\\"/g, '"');
 
   return `import React from 'react';
-import {Path, Svg} from 'react-native-svg';
+import {${imports.join(', ')}} from 'react-native-svg';
 import {createIcon} from '@gluestack-ui/icon';
 
 const ${componentName} = createIcon({
