@@ -4,7 +4,6 @@
 [![Node Version](https://img.shields.io/node/v/gluestack-icon-generator.svg)](https://www.npmjs.com/package/gluestack-icon-generator)
 [![CLI Tool](https://img.shields.io/badge/CLI-Tool-orange.svg)](https://www.npmjs.com/package/gluestack-icon-generator)
 
-
 Generate your favorite icons into Gluestack-v2 components with a single command! This CLI tool makes it effortless to generate icon components from any Iconify collection.
 
 ## ✨ Features
@@ -13,6 +12,10 @@ Generate your favorite icons into Gluestack-v2 components with a single command!
 - 💎 Generates React Native SVG components
 - 🛠️ Compatible with Gluestack-UI v2
 - 📦 Optimized component output
+
+## 📺 Demo
+
+<img src="./assets/demo.gif" width="600" alt="Demo">
 
 ## 🚀 Installation
 Install globally using your preferred package manager:
