@@ -37,7 +37,7 @@ function convertToPascalCase(str) {
     .join('') + 'Icon';
 }
 
-function createIconComponent(iconName, pathData, size) {
+function createIconComponent(iconName, pathData, size, collectionName, includeDesc = true) {
   const componentName = convertToPascalCase(iconName);
 
   // Get all unique SVG elements used in the pathData
@@ -92,7 +92,7 @@ function createIconComponent(iconName, pathData, size) {
     `${elementMapping[tag.toLowerCase()] || tag}>`
   ).replace(/\\"/g, '"');
 
-  return `import React from 'react';
+  return `${includeDesc ? `/* Icon from ${collectionName}: '${iconName}' */\n` : ''}import React from 'react';
 import {${imports.join(', ')}} from 'react-native-svg';
 import {createIcon} from '@gluestack-ui/icon';
 
@@ -196,6 +196,19 @@ async function promptForOutputPath(defaultPath = 'src/components/ui/icon') {
   return outputPath;
 }
 
+async function promptForDescription(defaultValue = false) {
+  const { includeDesc } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'includeDesc',
+      message: 'Include icon description (default: No) (e.g., "Icon from Lucide: \'pizza\'")',
+      default: defaultValue,
+      prefix: '📝'
+    }
+  ]);
+  return includeDesc;
+}
+
 async function generateIcons(options = {}) {
   const spinner = ora();
   try {
@@ -220,6 +233,9 @@ async function generateIcons(options = {}) {
     // Get output directory from options or prompt
     const outputDir = options.output || await promptForOutputPath();
 
+    // Get description from options or prompt
+    const includeDesc = options.desc || await promptForDescription();
+
     spinner.start(`Fetching icons from ${selectedCollection}`);
 
     // Create output directory if it doesn't exist
@@ -241,7 +257,8 @@ async function generateIcons(options = {}) {
       if (data.icons && data.icons[iconName]) {
         const iconData = data.icons[iconName];
         const componentName = convertToPascalCase(iconName);
-        const componentContent = createIconComponent(iconName, iconData.body, size);
+        const collectionName = collections[selectedCollection].name
+        const componentContent = createIconComponent(iconName, iconData.body, size, collectionName, includeDesc);
         
         // Write component file
         const fileName = `${convertToPascalCase(iconName)}.tsx`;

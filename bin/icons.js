@@ -11,9 +11,10 @@ program
   .command('generate')
   .alias('g')
   .description('Generate React Native icon components')
-  .option('-c, --collection <name>', 'Collection name (e.g., material-symbols)')
+  .option('-c, --collection <name>', 'Collection name (e.g., lucide)')
   .option('-i, --icons <names>', 'Comma-separated icon names')
   .option('-o, --output <path>', 'Output directory path (default: src/components/ui/icon)')
+  .option('--desc', 'Include icon description (e.g., "Icon from Lucide: \'pizza\'")')
   .action(async (options) => {
     try { 
       await generateIcons(options);

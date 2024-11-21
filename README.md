@@ -62,20 +62,21 @@ gicongen generate --collection mdi --icons "home, bell, map" --output src/compon
 ```
 or
 ```
-gicongen g -c mdi -i "home, bell, map" -o src/components/ui/icon
+gicongen g -c mdi -i "home, bell, map" -o src/components/ui/icon --desc
 ```
 
-This command will generate the icons `home`, `bell`, and `map` from the `mdi` collection and save them in the `src/components/ui/icon` directory.
+This command will generate the icons `home`, `bell`, and `map` from the `mdi` collection and save them in the `src/components/ui/icon` directory with descriptions.
 
 ### Options
 - `-c, --collection`: Icon collection name (e.g., mdi)
 - `-i, --icons`: Comma-separated icon names
 - `-o, --output`: Custom output directory (default: src/components/ui/icon)
+- `--desc`: Include icon description (default: No) (e.g., "Icon from Material Design Icons: 'home'")
 
 ## 🎯 Example
 
 ```
-// Generated icon component
+/* Icon from Material Design Icons: 'home' */
 import React from 'react';
 import {Path, Svg} from 'react-native-svg';
 import {createIcon} from '@gluestack-ui/icon';
