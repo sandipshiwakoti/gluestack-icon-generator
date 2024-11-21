@@ -73,10 +73,21 @@ function createIconComponent(iconName, pathData, size) {
     }
   }
 
+  const kebabToCamelCase = (str) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+
   // Clean and transform SVG data
   const cleanPathData = pathData.replace(
     /<(\w+)([^>]*)>/g,
-    (match, tag, attrs) => `<${elementMapping[tag.toLowerCase()] || tag}${attrs}>`
+    (match, tag, attrs) => {
+      const transformedTag = elementMapping[tag.toLowerCase()] || tag;
+      
+      const transformedAttrs = attrs.replace(
+        /([a-zA-Z-]+)="([^"]*)"/g,
+        (match, attr, value) => `${kebabToCamelCase(attr)}="${value}"`
+      );
+      
+      return `<${transformedTag}${transformedAttrs}>`;
+    }
   ).replace(/(\w+)>/g, (match, tag) => 
     `${elementMapping[tag.toLowerCase()] || tag}>`
   ).replace(/\\"/g, '"');
